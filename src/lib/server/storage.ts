@@ -162,7 +162,15 @@ function mapEmail(r: RawEmail): EmailRecord {
 let instance: StorageAdapter | null = null;
 export function getStorage(): StorageAdapter {
   if (!instance) {
-    const dbPath = process.env.KARGO_DB_PATH || path.join(process.cwd(), ".data", "kargo.db");
+    // On a read-only serverless filesystem (Vercel/Lambda) the cwd isn't
+    // writable, so fall back to /tmp. NOTE: /tmp is per-instance and ephemeral —
+    // for durable, shared decisions/audit log on Vercel, implement a hosted
+    // adapter (Neon Postgres / Vercel KV) and return it here instead.
+    const onServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+    const defaultPath = onServerless
+      ? path.join("/tmp", "kargo.db")
+      : path.join(process.cwd(), ".data", "kargo.db");
+    const dbPath = process.env.KARGO_DB_PATH || defaultPath;
     instance = new SqliteStorage(dbPath);
   }
   return instance;
