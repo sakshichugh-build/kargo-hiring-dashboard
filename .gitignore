@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# pipeline
+/pipeline-output/
+/.cache/
+.env.local
+.env
+/.data/

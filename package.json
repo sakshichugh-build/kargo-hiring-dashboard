@@ -6,21 +6,32 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "pipeline:extract": "tsx scripts/run-extract.ts",
+    "pipeline:backtest": "tsx scripts/run-backtest.ts",
+    "pipeline:score": "tsx scripts/run-score.ts",
+    "pipeline:build": "tsx scripts/run-all.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.129.0",
+    "mammoth": "^1.13.0",
     "next": "16.3.7",
+    "pdfjs-dist": "^6.3.289",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "resend": "^6.31.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^26.6.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^18.0.4",
     "eslint": "^9",
     "eslint-config-next": "16.3.7",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
